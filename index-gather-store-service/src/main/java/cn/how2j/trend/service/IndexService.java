@@ -23,6 +23,8 @@ public class IndexService {
     /**
      * 如果抛出异常，则执行断路器方法 third_part_not_connected
      * @return
+     * test addresss
+     * http://127.0.0.1:8001/getCodes
      */
     @HystrixCommand(fallbackMethod = "third_part_not_connected")
     public List<Index> fetch_indexes_from_third_part(){
