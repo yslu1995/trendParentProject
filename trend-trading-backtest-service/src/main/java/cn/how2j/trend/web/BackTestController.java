@@ -21,10 +21,11 @@ public class BackTestController {
     @Autowired
     BackTestService backTestService;
 
-    @GetMapping("/simulate/{code}/{startDate}/{endDate}")
+    @GetMapping("/simulate/{code}/{ma}/{startDate}/{endDate}")
     @CrossOrigin
     public Map<String, Object> backTest(
             @PathVariable("code") String code
+            , @PathVariable("ma") int ma
             , @PathVariable("startDate") String strStartDate
             , @PathVariable("endDate") String strEndDate
     ) throws Exception {
@@ -35,7 +36,6 @@ public class BackTestController {
 
         allIndexDatas = filterByDateRange(allIndexDatas, strStartDate, strEndDate);
 
-        int ma = 20;
         float sellRate = 0.95f;
         float buyRate = 1.05f;
         float serviceCharge = 0f;
