@@ -7,6 +7,10 @@ spring:
     name: index-zuul-service
 zuul:
   routes:
+#网关控制中心
     api-a:
       path: /api-codes/**
       serviceId: INDEX-CODES-SERVICE
+    api-b:
+      path: /api-backtest/**
+      serviceId: TREND-TRADING-BACKTEST-SERVICE
