@@ -1,5 +1,6 @@
 package cn.how2j.trend.web;
 
+import cn.how2j.trend.pojo.AnnualProfit;
 import cn.how2j.trend.pojo.IndexData;
 import cn.how2j.trend.pojo.Profit;
 import cn.how2j.trend.pojo.Trade;
@@ -53,6 +54,8 @@ public class BackTestController {
         float avgWinRate = (Float) simulateResult.get("avgWinRate");
         float avgLossRate = (Float) simulateResult.get("avgLossRate");
 
+        List<AnnualProfit> annualProfits = (List<AnnualProfit>) simulateResult.get("annualProfits");
+
         Map<String, Object> result = new HashMap<>();
         result.put("indexDatas", allIndexDatas);
         result.put("indexStartDate", indexStartDate);
@@ -70,13 +73,14 @@ public class BackTestController {
         result.put("avgWinRate", avgWinRate);
         result.put("avgLossRate", avgLossRate);
 
+        result.put("annualProfits", annualProfits);
+
         return result;
     }
 
     private List<IndexData> filterByDateRange(List<IndexData> allIndexDatas, String strStartDate, String strEndDate) {
-        if (StrUtil.isBlankOrUndefined(strStartDate) || StrUtil.isBlankOrUndefined(strEndDate)) {
+        if (StrUtil.isBlankOrUndefined(strStartDate) || StrUtil.isBlankOrUndefined(strEndDate))
             return allIndexDatas;
-        }
 
         List<IndexData> result = new ArrayList<>();
         Date startDate = DateUtil.parse(strStartDate);
