@@ -21,13 +21,14 @@ public class BackTestController {
     @Autowired
     BackTestService backTestService;
 
-    @GetMapping("/simulate/{code}/{ma}/{buyThreshold}/{sellThreshold}/{startDate}/{endDate}")
+    @GetMapping("/simulate/{code}/{ma}/{buyThreshold}/{sellThreshold}/{serviceCharge}/{startDate}/{endDate}")
     @CrossOrigin
     public Map<String, Object> backTest(
             @PathVariable("code") String code
             , @PathVariable("ma") int ma
             , @PathVariable("buyThreshold") float buyThreshold
             , @PathVariable("sellThreshold") float sellThreshold
+            , @PathVariable("serviceCharge") float serviceCharge
             , @PathVariable("startDate") String strStartDate
             , @PathVariable("endDate") String strEndDate
     ) throws Exception {
@@ -40,7 +41,6 @@ public class BackTestController {
 
         float sellRate = sellThreshold;
         float buyRate = buyThreshold;
-        float serviceCharge = 0f;
         Map<String, ?> simulateResult = backTestService.simulate(ma, sellRate, buyRate, serviceCharge, allIndexDatas);
         List<Profit> profits = (List<Profit>) simulateResult.get("profits");
         List<Trade> trades = (List<Trade>) simulateResult.get("trades");
@@ -81,8 +81,9 @@ public class BackTestController {
     }
 
     private List<IndexData> filterByDateRange(List<IndexData> allIndexDatas, String strStartDate, String strEndDate) {
-        if (StrUtil.isBlankOrUndefined(strStartDate) || StrUtil.isBlankOrUndefined(strEndDate))
+        if (StrUtil.isBlankOrUndefined(strStartDate) || StrUtil.isBlankOrUndefined(strEndDate)) {
             return allIndexDatas;
+        }
 
         List<IndexData> result = new ArrayList<>();
         Date startDate = DateUtil.parse(strStartDate);
