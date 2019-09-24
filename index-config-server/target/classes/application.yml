@@ -3,10 +3,10 @@ spring:
     name: index-config-server
   cloud:
     config:
-      label: patch-1
+      label: master
       server:
         git:
-          uri: https://github.com/yslu1995/trendConfig/
+          uri: https://github.com/yslu1995/trendParentProject/
           searchPaths: respo
 eureka:
   client:
