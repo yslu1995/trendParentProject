@@ -3,10 +3,10 @@ spring:
     name: index-config-server
   cloud:
     config:
-      label: master
+      label: patch-1
       server:
         git:
-          uri: https://github.com/how2j/trendConfig/
+          uri: https://github.com/yslu1995/trendConfig/
           searchPaths: respo
 eureka:
   client:
